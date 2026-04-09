@@ -135,7 +135,7 @@ foreach($drivers as $d){
          + $totals[$d['id']]['internet'] 
          + $totals[$d['id']]['other'];
     $detail_total = trim($totals_desc[$d['id']], "; ");
-    $html .= "<td colspan='4'>$sum</td>";
+    $html .= "<td colspan='5'>$sum</td>";
 }
 $html .= "</tr>";
 

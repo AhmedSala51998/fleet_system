@@ -67,12 +67,6 @@ $other = mysqli_fetch_assoc(mysqli_query($conn,"
             </div>
 
             <div class="col-md-3 mt-3 mt-md-0">
-                <button class="btn btn-primary w-100 btn-lg">
-                    🔍 عرض البيانات
-                </button>
-            </div>
-
-            <div class="col-md-3 mt-3 mt-md-0">
                 <a href="?" class="btn btn-outline-secondary w-100 btn-lg">
                     ♻️ إعادة تعيين
                 </a>

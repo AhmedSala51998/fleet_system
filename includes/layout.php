@@ -128,23 +128,23 @@
 <div class="sidebar">
     <h4><i class="fa fa-car"></i> لوحة التحكم</h4>
 
-    <a href="/fleet/dashboard.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='dashboard.php') echo 'active'; ?>">
+    <a href="/dashboard.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='dashboard.php') echo 'active'; ?>">
         <i class="fa fa-home"></i> الرئيسية
     </a>
 
-    <a href="/fleet/drivers/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'drivers')) echo 'active'; ?>">
+    <a href="/drivers/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'drivers')) echo 'active'; ?>">
         <i class="fa fa-user"></i> السائقين
     </a>
 
-    <a href="/fleet/vehicles/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'vehicles')) echo 'active'; ?>">
+    <a href="/vehicles/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'vehicles')) echo 'active'; ?>">
         <i class="fa fa-car"></i> المركبات
     </a>
 
-    <a href="/fleet/expenses/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'expenses')) echo 'active'; ?>">
+    <a href="/expenses/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'expenses')) echo 'active'; ?>">
         <i class="fa fa-gas-pump"></i> البنزين والصيانة
     </a>
 
-    <a href="/fleet/reports/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'reports')) echo 'active'; ?>">
+    <a href="/reports/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'reports')) echo 'active'; ?>">
         <i class="fa fa-chart-bar"></i> التقارير
     </a>
 

@@ -5,9 +5,14 @@ include("includes/layout.php");
 // ===== فلترة الشهر =====
 $month = $_GET['month'] ?? date('Y-m'); // افتراضي الشهر الحالي
 
-// ===== العدادات =====
-$drivers = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM drivers"));
-$vehicles = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM vehicles"));
+// ===== العدادات حسب الشهر =====
+$drivers = mysqli_num_rows(mysqli_query($conn,"SELECT DISTINCT d.id FROM drivers d
+    JOIN expenses e ON d.id = e.driver_id
+    WHERE DATE_FORMAT(e.created_at,'%Y-%m')='$month'"));
+
+$vehicles = mysqli_num_rows(mysqli_query($conn,"SELECT DISTINCT v.id FROM vehicles v
+    JOIN expenses e ON v.id = e.vehicle_id
+    WHERE DATE_FORMAT(e.created_at,'%Y-%m')='$month'"));
 
 // المصروفات حسب النوع للشهر المختار
 $fuel = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='fuel' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
@@ -16,13 +21,14 @@ $internet = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total F
 $other = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='other' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
 ?>
 
-<h3>الرئيسية</h3>
-
 <!-- فلتر الشهر -->
-<form method="get" class="mb-3">
-    <label>اختر الشهر: </label>
-    <input type="month" name="month" value="<?php echo $month; ?>" onchange="this.form.submit()">
-</form>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>الرئيسية</h3>
+    <form method="get">
+        <label>اختر الشهر: </label>
+        <input type="month" name="month" value="<?php echo $month; ?>" onchange="this.form.submit()" style="padding:3px; margin-left:5px;">
+    </form>
+</div>
 
 <div class="row">
 

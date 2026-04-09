@@ -5,32 +5,24 @@ include("includes/layout.php");
 // ===== فلترة الشهر =====
 $month = $_GET['month'] ?? date('Y-m'); // افتراضي الشهر الحالي
 
-// ===== العدادات حسب الشهر =====
-$drivers = mysqli_fetch_assoc(mysqli_query($conn,"
-    SELECT COUNT(DISTINCT d.id) as total FROM drivers d
-    LEFT JOIN expenses e ON d.id = e.driver_id AND DATE_FORMAT(e.created_at,'%Y-%m')='$month'
-"))['total'] ?? 0;
-
-$vehicles = mysqli_fetch_assoc(mysqli_query($conn,"
-    SELECT COUNT(DISTINCT v.id) as total FROM vehicles v
-    LEFT JOIN expenses e ON v.id = e.vehicle_id AND DATE_FORMAT(e.created_at,'%Y-%m')='$month'
-"))['total'] ?? 0;
+// ===== العدادات =====
+$drivers = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM drivers"));
+$vehicles = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM vehicles"));
 
 // المصروفات حسب النوع للشهر المختار
-$fuel = mysqli_fetch_assoc(mysqli_query($conn,"SELECT IFNULL(SUM(amount),0) as total FROM expenses WHERE service_type='fuel' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'];
-$maintenance = mysqli_fetch_assoc(mysqli_query($conn,"SELECT IFNULL(SUM(amount),0) as total FROM expenses WHERE service_type='maintenance' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'];
-$internet = mysqli_fetch_assoc(mysqli_query($conn,"SELECT IFNULL(SUM(amount),0) as total FROM expenses WHERE service_type='internet' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'];
-$other = mysqli_fetch_assoc(mysqli_query($conn,"SELECT IFNULL(SUM(amount),0) as total FROM expenses WHERE service_type='other' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'];
+$fuel = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='fuel' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
+$maintenance = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='maintenance' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
+$internet = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='internet' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
+$other = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='other' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
 ?>
 
-<!-- فلتر الشهر -->
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h3>الرئيسية</h3>
-    <form method="get">
-        <label>اختر الشهر: </label>
-        <input type="month" name="month" value="<?php echo $month; ?>" onchange="this.form.submit()" style="padding:3px; margin-left:5px;">
-    </form>
-</div>
+<h3 style="display:inline-block; margin-right:20px;">الرئيسية</h3>
+
+<!-- فلتر الشهر بجانب العنوان -->
+<form method="get" style="display:inline-block; vertical-align: middle;">
+    <label style="margin-right:5px;">اختر الشهر:</label>
+    <input type="month" name="month" value="<?php echo $month; ?>" onchange="this.form.submit()" style="padding:3px 5px;">
+</form>
 
 <div class="row">
 

@@ -13,7 +13,7 @@ if($driver_id){
 
 $drivers_q = mysqli_query($conn,"SELECT * FROM drivers $where");
 $drivers = [];
-while($d = mysqli_fetch_assoc($drivers_q)){ // استخدم $drivers_q هنا
+while($d = mysqli_fetch_assoc($drivers_q)){
     $drivers[] = $d;
 }
 
@@ -24,6 +24,7 @@ table{border-collapse:collapse;width:100%;margin-top:10px;table-layout:auto;}
 th, td{border:1px solid #000;padding:4px;text-align:center;word-wrap:break-word; white-space: nowrap;}
 th{background:#f2f2f2;}
 h3{text-align:center;}
+small{font-size:8px;}
 
 /* للطباعة */
 @media print {
@@ -36,94 +37,79 @@ h3{text-align:center;}
 $html .= "<h3>Drivers Report - $month</h3>";
 $html .= "<table>";
 
-// الصف الأول: Drivers Data
+// Header بيانات السائقين
 $html .= "<tr><td>Drivers Data</td>";
 foreach($drivers as $d){
-    $html .= "<td>Name</td><td>{$d['driver_name']}</td><td></td><td></td>";
+    $html .= "<td colspan='4' style='background:#d9edf7'>{$d['driver_name']}</td>";
 }
 $html .= "</tr>";
 
-// الصف الثاني: Iqama
 $html .= "<tr><td></td>";
 foreach($drivers as $d){
-    $html .= "<td>Iqama</td><td>{$d['iqama_number']}</td><td></td><td></td>";
+    $html .= "<td>Iqama</td><td>Code</td><td>Mobile</td><td></td>";
 }
 $html .= "</tr>";
 
-// الصف الثالث: Code
 $html .= "<tr><td></td>";
 foreach($drivers as $d){
-    $html .= "<td>Code</td><td>{$d['id']}</td><td></td><td></td>";
+    $html .= "<td>{$d['iqama_number']}</td><td>{$d['id']}</td><td>-</td><td></td>";
 }
 $html .= "</tr>";
 
-// الصف الرابع: Mobile
-$html .= "<tr><td></td>";
-foreach($drivers as $d){
-    $html .= "<td>Mobile</td><td>-</td><td></td><td></td>";
-}
-$html .= "</tr>";
-
-// Header الأيام والمصروفات
-$html .= "<tr><th>Days</th><th>Detail</th>";
+// Header الأيام والخدمات
+$html .= "<tr><th>Days</th>";
 foreach($drivers as $d){
     $html .= "<th>Gasoline</th><th>Maintenance</th><th>Internet</th><th>Other</th>";
 }
 $html .= "</tr>";
 
 // بيانات كل يوم
-// بيانات كل يوم
 $totals = [];
 for($day=1; $day<=31; $day++){
-    $html .= "<tr><td>$day</td><td>"; // البداية لخانة Detail
+    $html .= "<tr><td>$day</td>";
     
     foreach($drivers as $d){
         $date = $month . '-' . str_pad($day,2,'0',STR_PAD_LEFT);
         
-        // جلب المصروفات مع problem_description
+        // جلب المصروفات لكل خدمة مع التفاصيل
         $res = mysqli_query($conn,"
-            SELECT service_type, SUM(amount) total, GROUP_CONCAT(problem_description SEPARATOR ', ') as details
+            SELECT service_type, SUM(amount) as total, GROUP_CONCAT(problem_description SEPARATOR ', ') as details
             FROM expenses
             WHERE driver_id = {$d['id']}
             AND DATE(created_at)='$date'
             GROUP BY service_type
         ");
-        
-        $data = ['fuel'=>0,'maintenance'=>0,'internet'=>0,'other'=>0,'details'=>''];
+
+        $data = [
+            'fuel'=>0,'maintenance'=>0,'internet'=>0,'other'=>0,
+            'fuel_desc'=>'','maintenance_desc'=>'','internet_desc'=>'','other_desc'=>''
+        ];
         while($r = mysqli_fetch_assoc($res)){
             $data[$r['service_type']] = $r['total'];
-            $data['details'] .= $r['details'] . "; ";
+            if($r['service_type'] == 'fuel') $data['fuel_desc'] .= $r['details'] . "; ";
+            if($r['service_type'] == 'maintenance') $data['maintenance_desc'] .= $r['details'] . "; ";
+            if($r['service_type'] == 'internet') $data['internet_desc'] .= $r['details'] . "; ";
+            if($r['service_type'] == 'other') $data['other_desc'] .= $r['details'] . "; ";
         }
 
-        // أول سائق: اكتب التفاصيل في العمود Detail (لكل يوم)
-        if(!isset($first_driver)){
-            $html .= $data['details'];
-            $first_driver = true;
-        }
-
-        // الأعمدة الخاصة بالخدمات
-        $html .= "<td>{$data['fuel']}</td>
-                  <td>{$data['maintenance']}</td>
-                  <td>{$data['internet']}</td>
-                  <td>{$data['other']}</td>";
+        // عرض الرقم + التفاصيل لكل خدمة
+        $html .= "<td>{$data['fuel']}<br><small>{$data['fuel_desc']}</small></td>
+                  <td>{$data['maintenance']}<br><small>{$data['maintenance_desc']}</small></td>
+                  <td>{$data['internet']}<br><small>{$data['internet_desc']}</small></td>
+                  <td>{$data['other']}<br><small>{$data['other_desc']}</small></td>";
 
         // تجميع الإجماليات
-        if(!isset($totals[$d['id']])){
-            $totals[$d['id']] = ['fuel'=>0,'maintenance'=>0,'internet'=>0,'other'=>0];
-        }
+        if(!isset($totals[$d['id']])) $totals[$d['id']] = ['fuel'=>0,'maintenance'=>0,'internet'=>0,'other'=>0];
         $totals[$d['id']]['fuel'] += $data['fuel'];
         $totals[$d['id']]['maintenance'] += $data['maintenance'];
         $totals[$d['id']]['internet'] += $data['internet'];
         $totals[$d['id']]['other'] += $data['other'];
     }
-
-    $html .= "</td></tr>";
-    unset($first_driver); // إعادة تعيين المتغير لليوم التالي
+    $html .= "</tr>";
 }
 
-// Total لكل سائق
-// Total لكل سائق لكل خدمة (موجود عندك)
-$html .= "<tr><td>Total</td><td></td>";
+// Total لكل سائق لكل خدمة
+$html .= "<tr style='background:#f2dede'><td>Total</td>";
 foreach($drivers as $d){
     $html .= "<td>{$totals[$d['id']]['fuel']}</td>
               <td>{$totals[$d['id']]['maintenance']}</td>
@@ -132,24 +118,19 @@ foreach($drivers as $d){
 }
 $html .= "</tr>";
 
-// ===== Total شامل لكل الخدمات لكل سائق =====
-$html .= "<tr><td>Total All Services</td><td></td>";
+// Total شامل لكل سائق
+$html .= "<tr style='background:#dff0d8'><td>Total All Services</td>";
 foreach($drivers as $d){
     $sum = $totals[$d['id']]['fuel'] 
          + $totals[$d['id']]['maintenance'] 
          + $totals[$d['id']]['internet'] 
          + $totals[$d['id']]['other'];
-    $html .= "<td colspan='4'>$sum</td>"; // نجمع الأربع أعمدة في خانة واحدة
+    $html .= "<td colspan='4'>$sum</td>";
 }
 $html .= "</tr>";
 
 $html .= "</table>";
 
-// ===== طباعة التقرير مباشرة =====
+// طباعة التقرير
 echo $html;
 ?>
-<script>
-window.onload = function(){
-    window.print();
-}
-</script>

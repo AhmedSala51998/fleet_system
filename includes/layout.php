@@ -194,7 +194,7 @@
       <!-- Footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-        <a href="/fleet/login/logout.php" class="btn btn-danger">نعم، تسجيل الخروج</a>
+        <a href="/login/logout.php" class="btn btn-danger">نعم، تسجيل الخروج</a>
       </div>
 
     </div>

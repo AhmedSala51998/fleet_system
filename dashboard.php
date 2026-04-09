@@ -2,18 +2,27 @@
 include("includes/db.php");
 include("includes/layout.php");
 
-// العدادات
+// ===== فلترة الشهر =====
+$month = $_GET['month'] ?? date('Y-m'); // افتراضي الشهر الحالي
+
+// ===== العدادات =====
 $drivers = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM drivers"));
 $vehicles = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM vehicles"));
 
-// المصروفات حسب النوع
-$fuel = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='fuel'"))['total'] ?? 0;
-$maintenance = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='maintenance'"))['total'] ?? 0;
-$internet = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='internet'"))['total'] ?? 0;
-$other = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='other'"))['total'] ?? 0;
+// المصروفات حسب النوع للشهر المختار
+$fuel = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='fuel' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
+$maintenance = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='maintenance' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
+$internet = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='internet' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
+$other = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='other' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
 ?>
 
 <h3>الرئيسية</h3>
+
+<!-- فلتر الشهر -->
+<form method="get" class="mb-3">
+    <label>اختر الشهر: </label>
+    <input type="month" name="month" value="<?php echo $month; ?>" onchange="this.form.submit()">
+</form>
 
 <div class="row">
 
@@ -49,7 +58,6 @@ $other = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM
         </div>
     </div>
 
-    <!-- الكروت الجديدة -->
     <div class="col-md-3 mt-3">
         <div class="stat-card" style="background-color:#6f42c1; color:#fff;">
             <h3><?php echo $internet; ?></h3>
@@ -73,7 +81,6 @@ $other = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
 var ctx = document.getElementById('myChart');
 

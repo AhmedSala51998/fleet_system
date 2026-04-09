@@ -3,25 +3,83 @@ include("includes/db.php");
 include("includes/layout.php");
 
 // ===== فلترة الشهر =====
-$month = $_GET['month'] ?? date('Y-m'); // افتراضي الشهر الحالي
+$month = $_GET['month'] ?? date('Y-m');
 
-// ===== العدادات =====
-$drivers = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM drivers"));
-$vehicles = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM vehicles"));
+// ===== تحديد بداية ونهاية الشهر (أسرع من DATE_FORMAT) =====
+$start = $month . "-01";
+$end = date("Y-m-t", strtotime($start));
 
-// المصروفات حسب النوع للشهر المختار
-$fuel = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='fuel' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
-$maintenance = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='maintenance' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
-$internet = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='internet' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
-$other = mysqli_fetch_assoc(mysqli_query($conn,"SELECT SUM(amount) as total FROM expenses WHERE service_type='other' AND DATE_FORMAT(created_at,'%Y-%m')='$month'"))['total'] ?? 0;
+// ===== العدادات (مربوطة بالشهر) =====
+$drivers = mysqli_num_rows(mysqli_query($conn,"
+    SELECT * FROM drivers 
+    WHERE created_at BETWEEN '$start' AND '$end'
+"));
+
+$vehicles = mysqli_num_rows(mysqli_query($conn,"
+    SELECT * FROM vehicles 
+    WHERE created_at BETWEEN '$start' AND '$end'
+"));
+
+// ===== المصروفات حسب النوع =====
+$fuel = mysqli_fetch_assoc(mysqli_query($conn,"
+    SELECT SUM(amount) as total 
+    FROM expenses 
+    WHERE service_type='fuel' 
+    AND created_at BETWEEN '$start' AND '$end'
+"))['total'] ?? 0;
+
+$maintenance = mysqli_fetch_assoc(mysqli_query($conn,"
+    SELECT SUM(amount) as total 
+    FROM expenses 
+    WHERE service_type='maintenance' 
+    AND created_at BETWEEN '$start' AND '$end'
+"))['total'] ?? 0;
+
+$internet = mysqli_fetch_assoc(mysqli_query($conn,"
+    SELECT SUM(amount) as total 
+    FROM expenses 
+    WHERE service_type='internet' 
+    AND created_at BETWEEN '$start' AND '$end'
+"))['total'] ?? 0;
+
+$other = mysqli_fetch_assoc(mysqli_query($conn,"
+    SELECT SUM(amount) as total 
+    FROM expenses 
+    WHERE service_type='other' 
+    AND created_at BETWEEN '$start' AND '$end'
+"))['total'] ?? 0;
 ?>
 
-<h3 style="display:inline-block; margin-right:20px;">الرئيسية</h3>
+<h3>الرئيسية</h3>
 
-<!-- فلتر الشهر بجانب العنوان -->
-<form method="get" style="display:inline-block; vertical-align: middle;">
-    <label style="margin-right:5px;">اختر الشهر:</label>
-    <input type="month" name="month" value="<?php echo $month; ?>" onchange="this.form.submit()" style="padding:3px 5px;">
+<!-- فلتر الشهر -->
+<form method="get" class="mb-4">
+    <div class="card p-3 shadow-sm border-0">
+        <div class="row align-items-center">
+
+            <div class="col-md-4">
+                <label class="form-label fw-bold">📅 اختر الشهر</label>
+                <input type="month" 
+                       name="month" 
+                       class="form-control form-control-lg"
+                       value="<?php echo $month; ?>"
+                       onchange="this.form.submit()">
+            </div>
+
+            <div class="col-md-3 mt-3 mt-md-0">
+                <button class="btn btn-primary w-100 btn-lg">
+                    🔍 عرض البيانات
+                </button>
+            </div>
+
+            <div class="col-md-3 mt-3 mt-md-0">
+                <a href="?" class="btn btn-outline-secondary w-100 btn-lg">
+                    ♻️ إعادة تعيين
+                </a>
+            </div>
+
+        </div>
+    </div>
 </form>
 
 <div class="row">

@@ -30,7 +30,6 @@ $driver_filter = isset($_GET['driver_id']) && $_GET['driver_id'] != '' ? " AND d
 
 $q = mysqli_query($conn,"
     SELECT d.id, d.driver_name,
-    e.problem_description,
     SUM(CASE WHEN e.service_type='fuel' THEN e.amount ELSE 0 END) as fuel,
     SUM(CASE WHEN e.service_type='maintenance' THEN e.amount ELSE 0 END) as maintenance,
     SUM(CASE WHEN e.service_type='internet' THEN e.amount ELSE 0 END) as internet,
@@ -122,7 +121,6 @@ $q = mysqli_query($conn,"
                     <th>صيانة</th>
                     <th>انترنت</th>
                     <th>أخرى</th>
-                    <th>سبب العطل أو الصيانة  / أخرى</th>
                     <th>الإجمالي</th>
                 </tr>
             </thead>
@@ -138,7 +136,6 @@ $q = mysqli_query($conn,"
                     <td><?php echo $row['maintenance']; ?></td>
                     <td><?php echo $row['internet']; ?></td>
                     <td><?php echo $row['other']; ?></td>
-                    <td><?php echo $row['problem_description']; ?></td>
                     <td><b><?php echo $total; ?></b></td>
                 </tr>
                 <?php } ?>

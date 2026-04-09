@@ -72,23 +72,36 @@ foreach($drivers as $d){
 $html .= "</tr>";
 
 // بيانات كل يوم
+// بيانات كل يوم
 $totals = [];
 for($day=1; $day<=31; $day++){
-    $html .= "<tr><td>$day</td><td></td>";
+    $html .= "<tr><td>$day</td><td>"; // البداية لخانة Detail
+    
     foreach($drivers as $d){
         $date = $month . '-' . str_pad($day,2,'0',STR_PAD_LEFT);
+        
+        // جلب المصروفات مع problem_description
         $res = mysqli_query($conn,"
-            SELECT service_type, SUM(amount) total
+            SELECT service_type, SUM(amount) total, GROUP_CONCAT(problem_description SEPARATOR ', ') as details
             FROM expenses
             WHERE driver_id = {$d['id']}
             AND DATE(created_at)='$date'
             GROUP BY service_type
         ");
-        $data = ['fuel'=>0,'maintenance'=>0,'internet'=>0,'other'=>0];
+        
+        $data = ['fuel'=>0,'maintenance'=>0,'internet'=>0,'other'=>0,'details'=>''];
         while($r = mysqli_fetch_assoc($res)){
             $data[$r['service_type']] = $r['total'];
+            $data['details'] .= $r['details'] . "; ";
         }
 
+        // أول سائق: اكتب التفاصيل في العمود Detail (لكل يوم)
+        if(!isset($first_driver)){
+            $html .= $data['details'];
+            $first_driver = true;
+        }
+
+        // الأعمدة الخاصة بالخدمات
         $html .= "<td>{$data['fuel']}</td>
                   <td>{$data['maintenance']}</td>
                   <td>{$data['internet']}</td>
@@ -103,7 +116,9 @@ for($day=1; $day<=31; $day++){
         $totals[$d['id']]['internet'] += $data['internet'];
         $totals[$d['id']]['other'] += $data['other'];
     }
-    $html .= "</tr>";
+
+    $html .= "</td></tr>";
+    unset($first_driver); // إعادة تعيين المتغير لليوم التالي
 }
 
 // Total لكل سائق

@@ -24,13 +24,12 @@ table{border-collapse:collapse;width:100%;margin-top:10px;table-layout:auto;}
 th, td{border:1px solid #000;padding:4px;text-align:center;word-wrap:break-word; white-space: nowrap;}
 th{background:#f2f2f2;}
 h3{text-align:center;}
-small{font-size:8px;}
 
 /* للطباعة */
 @media print {
     table { page-break-inside: auto; }
     tr    { page-break-inside: avoid; page-break-after: auto; }
-    td, th { white-space: normal; } /* السماح للكلمات بالانكسار */
+    td, th { white-space: normal; }
 }
 </style>";
 
@@ -40,31 +39,32 @@ $html .= "<table>";
 // Header بيانات السائقين
 $html .= "<tr><td>Drivers Data</td>";
 foreach($drivers as $d){
-    $html .= "<td colspan='4' style='background:#d9edf7'>{$d['driver_name']}</td>";
+    $html .= "<td colspan='5' style='background:#d9edf7'>{$d['driver_name']}</td>";
 }
 $html .= "</tr>";
 
 $html .= "<tr><td></td>";
 foreach($drivers as $d){
-    $html .= "<td>Iqama</td><td>Code</td><td>Mobile</td><td></td>";
+    $html .= "<td>Iqama</td><td>Code</td><td>Mobile</td><td></td><td>Detail</td>";
 }
 $html .= "</tr>";
 
 $html .= "<tr><td></td>";
 foreach($drivers as $d){
-    $html .= "<td>{$d['iqama_number']}</td><td>{$d['id']}</td><td>-</td><td></td>";
+    $html .= "<td>{$d['iqama_number']}</td><td>{$d['id']}</td><td>-</td><td></td><td></td>";
 }
 $html .= "</tr>";
 
 // Header الأيام والخدمات
 $html .= "<tr><th>Days</th>";
 foreach($drivers as $d){
-    $html .= "<th>Gasoline</th><th>Maintenance</th><th>Internet</th><th>Other</th>";
+    $html .= "<th>Gasoline</th><th>Maintenance</th><th>Internet</th><th>Other</th><th>Detail</th>";
 }
 $html .= "</tr>";
 
 // بيانات كل يوم
 $totals = [];
+$totals_desc = [];
 for($day=1; $day<=31; $day++){
     $html .= "<tr><td>$day</td>";
     
@@ -92,18 +92,26 @@ for($day=1; $day<=31; $day++){
             if($r['service_type'] == 'other') $data['other_desc'] .= $r['details'] . "; ";
         }
 
-        // عرض الرقم + التفاصيل لكل خدمة
-        $html .= "<td>{$data['fuel']}<br><small>{$data['fuel_desc']}</small></td>
-                  <td>{$data['maintenance']}<br><small>{$data['maintenance_desc']}</small></td>
-                  <td>{$data['internet']}<br><small>{$data['internet_desc']}</small></td>
-                  <td>{$data['other']}<br><small>{$data['other_desc']}</small></td>";
+        // عرض الرقم لكل خدمة
+        $html .= "<td>{$data['fuel']}</td>
+                  <td>{$data['maintenance']}</td>
+                  <td>{$data['internet']}</td>
+                  <td>{$data['other']}</td>";
 
-        // تجميع الإجماليات
+        // عمود Detail منفصل لكل سائق
+        $detail_text = trim($data['fuel_desc'].' '.$data['maintenance_desc'].' '.$data['internet_desc'].' '.$data['other_desc'], " ;");
+        $html .= "<td>$detail_text</td>";
+
+        // تجميع الإجماليات لكل سائق
         if(!isset($totals[$d['id']])) $totals[$d['id']] = ['fuel'=>0,'maintenance'=>0,'internet'=>0,'other'=>0];
+        if(!isset($totals_desc[$d['id']])) $totals_desc[$d['id']] = '';
+
         $totals[$d['id']]['fuel'] += $data['fuel'];
         $totals[$d['id']]['maintenance'] += $data['maintenance'];
         $totals[$d['id']]['internet'] += $data['internet'];
         $totals[$d['id']]['other'] += $data['other'];
+
+        $totals_desc[$d['id']] .= $detail_text . "; ";
     }
     $html .= "</tr>";
 }
@@ -114,23 +122,24 @@ foreach($drivers as $d){
     $html .= "<td>{$totals[$d['id']]['fuel']}</td>
               <td>{$totals[$d['id']]['maintenance']}</td>
               <td>{$totals[$d['id']]['internet']}</td>
-              <td>{$totals[$d['id']]['other']}</td>";
+              <td>{$totals[$d['id']]['other']}</td>
+              <td></td>";
 }
 $html .= "</tr>";
 
-// Total شامل لكل سائق
+// Total شامل لكل سائق مع جمع كل التفاصيل
 $html .= "<tr style='background:#dff0d8'><td>Total All Services</td>";
 foreach($drivers as $d){
     $sum = $totals[$d['id']]['fuel'] 
          + $totals[$d['id']]['maintenance'] 
          + $totals[$d['id']]['internet'] 
          + $totals[$d['id']]['other'];
-    $html .= "<td colspan='4'>$sum</td>";
+    $detail_total = trim($totals_desc[$d['id']], "; ");
+    $html .= "<td colspan='4'>$sum</td><td>$detail_total</td>";
 }
 $html .= "</tr>";
 
 $html .= "</table>";
 
-// طباعة التقرير
 echo $html;
 ?>

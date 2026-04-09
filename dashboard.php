@@ -66,12 +66,6 @@ $other = mysqli_fetch_assoc(mysqli_query($conn,"
                        onchange="this.form.submit()">
             </div>
 
-            <div class="col-md-3 mt-3 mt-md-0">
-                <a href="?" class="btn btn-outline-secondary w-100 btn-lg">
-                    ♻️ إعادة تعيين
-                </a>
-            </div>
-
         </div>
     </div>
 </form>

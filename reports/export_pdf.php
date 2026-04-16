@@ -1,6 +1,6 @@
 <?php
 require __DIR__.'/../includes/db.php';
-include("../includes/layout.php");
+include("../includes/lang.php");
 
 // ===== فلترة الشهر والسائق =====
 $month = $_GET['month'] ?? date('Y-m'); // افتراضي الشهر الحالي

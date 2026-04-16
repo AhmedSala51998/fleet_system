@@ -37,8 +37,10 @@ $t = $trans[$lang];
             width: 260px;
             height: 100vh;
             position: fixed;
-            right: 0;
             top: 0;
+
+            <?php echo ($lang == 'ar') ? 'right:0;' : 'left:0;'; ?>
+
             background: linear-gradient(180deg, #4e73df, #224abe);
             color: #fff;
             padding-top: 20px;
@@ -85,7 +87,7 @@ $t = $trans[$lang];
 
         /* Content */
         .content {
-            margin-right: 270px;
+            <?php echo ($lang == 'ar') ? 'margin-right:270px;' : 'margin-left:270px;'; ?>
             padding: 20px;
         }
 

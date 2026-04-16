@@ -170,5 +170,10 @@ $data[] = $grand;
 
 // ====== تحميل ======
 $xlsx = Shuchkin\SimpleXLSXGen::fromArray($data);
+if($lang == 'ar'){
+    foreach($data as &$row){
+        $row = array_reverse($row);
+    }
+}
 $xlsx->downloadAs($trans[$lang]['drivers_report_file'] . ".xlsx");
 exit;

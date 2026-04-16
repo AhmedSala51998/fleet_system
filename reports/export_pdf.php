@@ -27,14 +27,35 @@ while($d = mysqli_fetch_assoc($drivers_q)){
 }
 
 // ===== بناء الـ HTML =====
+$dir = ($lang == 'ar') ? 'rtl' : 'ltr';
+$textAlign = ($lang == 'ar') ? 'right' : 'left';
+
 $html = "<style>
-body{font-family:Arial, sans-serif;font-size:10px;}
-table{border-collapse:collapse;width:100%;margin-top:10px;table-layout:auto;}
-th, td{border:1px solid #000;padding:4px;text-align:center;word-wrap:break-word; white-space: nowrap;}
+body{
+    font-family:Arial, sans-serif;
+    font-size:10px;
+    direction:$dir;
+    text-align:$textAlign;
+}
+table{
+    border-collapse:collapse;
+    width:100%;
+    margin-top:10px;
+    table-layout:auto;
+    direction:$dir;
+}
+th, td{
+    border:1px solid #000;
+    padding:4px;
+    text-align:center;
+    word-wrap:break-word;
+    white-space: nowrap;
+}
 th{background:#f2f2f2;}
 h3{text-align:center;}
 .row-gray{background:#f2f2f2;}
 .row-white{background:#ffffff;}
+
 @media print {
     table { page-break-inside: auto; }
     tr    { page-break-inside: avoid; page-break-after: auto; }

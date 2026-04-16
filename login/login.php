@@ -130,6 +130,25 @@ if(isset($_POST['login'])){
         [dir="ltr"] .login-card {
             text-align: left;
         }
+        html, body {
+            height: 100%;
+            direction: <?php echo $dir; ?>;
+        }
+        .input-group {
+            direction: ltr; /* ثابت */
+        }
+
+        [dir="rtl"] .input-group {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .input-group-text {
+            border-radius: 0 10px 10px 0;
+        }
+
+        [dir="ltr"] .input-group-text {
+            border-radius: 10px 0 0 10px;
+        }
     </style>
 </head>
 

@@ -105,26 +105,9 @@ $t = $trans[$lang];
         }
 
         /* Cards */
-        .stat-card {
-            padding: 20px;
-            border-radius: 15px;
-            color: #fff;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: 0.3s;
-        }
 
         .stat-card:hover {
             transform: translateY(-5px);
-        }
-
-        .stat-card i {
-            font-size: 40px;
-            position: absolute;
-            left: 20px;
-            bottom: 20px;
-            opacity: 0.3;
         }
 
         .bg-blue { background: linear-gradient(45deg,#4e73df,#224abe); }
@@ -139,25 +122,25 @@ $t = $trans[$lang];
             box-shadow: 0 0 10px #ddd;
         }
 
-            .stat-card {
-                padding: 20px;
-                border-radius: 15px;
-                color: #fff;
-                position: relative;
-                overflow: hidden;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                transition: 0.3s;
+        .stat-card {
+            padding: 20px;
+            border-radius: 15px;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
 
-                text-align: <?php echo ($lang=='ar') ? 'right' : 'left'; ?>;
-            }
-            .stat-card i {
-                font-size: 40px;
-                position: absolute;
-                bottom: 20px;
-                opacity: 0.3;
+            text-align: <?php echo ($lang=='ar') ? 'right' : 'left'; ?>;
+        }
+        .stat-card i {
+            font-size: 40px;
+            position: absolute;
+            bottom: 20px;
+            opacity: 0.3;
 
-                <?php echo ($lang=='ar') ? 'left:20px;' : 'right:20px;'; ?>
-            }
+            <?php echo ($lang=='ar') ? 'left:20px;' : 'right:20px;'; ?>
+        }
     </style>
 </head>
 <body>

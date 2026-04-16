@@ -89,6 +89,39 @@ $trans = [
         'add_success' => 'تمت الإضافة',
         'company' => 'شركة',
         'rented' => 'مستأجرة',
+        'expenses' => 'البنزين والصيانة',
+        'bulk_edit_expenses' => 'تعديل جماعي للعمليات',
+        'add_multiple_expenses' => 'إضافة عمليات متعددة',
+
+        'driver' => 'السائق',
+        'service_type' => 'نوع الخدمة',
+        'amount' => 'المبلغ',
+        'problem_description' => 'وصف العطل',
+        'invoice' => 'الفاتورة',
+        'date' => 'التاريخ',
+        'date_time' => 'التاريخ والوقت',
+
+        'fuel' => 'بنزين',
+        'internet' => 'انترنت',
+        'maintenance' => 'عطل وصيانة',
+        'other' => 'أخرى',
+
+        'delete_expense' => 'حذف العملية',
+
+        'select_one_expense' => 'اختار عملية واحدة على الأقل',
+
+        'add_row' => 'إضافة صف',
+
+        'update_success' => 'تم التحديث',
+        'add_success' => 'تمت الإضافة',
+        'delete_operation' => 'حذف العملية',
+        'select_one_expense' => 'اختار عملية واحدة على الأقل',
+        'fuel' => 'بنزين',
+        'internet' => 'انترنت',
+        'maintenance' => 'عطل وصيانة',
+        'other' => 'أخرى',
+        'problem_description' => 'وصف العطل',
+        'date_time' => 'التاريخ والوقت',
     ],
 
     'en' => [
@@ -178,5 +211,38 @@ $trans = [
         'add_success' => 'Added successfully',
         'company' => 'Company',
         'rented' => 'Rented',
+        'expenses' => 'Fuel & Maintenance',
+        'bulk_edit_expenses' => 'Bulk Edit Expenses',
+        'add_multiple_expenses' => 'Add Multiple Expenses',
+
+        'driver' => 'Driver',
+        'service_type' => 'Service Type',
+        'amount' => 'Amount',
+        'problem_description' => 'Problem Description',
+        'invoice' => 'Invoice',
+        'date' => 'Date',
+        'date_time' => 'Date & Time',
+
+        'fuel' => 'Fuel',
+        'internet' => 'Internet',
+        'maintenance' => 'Maintenance',
+        'other' => 'Other',
+
+        'delete_expense' => 'Delete Expense',
+
+        'select_one_expense' => 'Select at least one expense',
+
+        'add_row' => 'Add Row',
+
+        'update_success' => 'Updated successfully',
+        'add_success' => 'Added successfully',
+        'delete_operation' => 'Delete Operation',
+        'select_one_expense' => 'Select at least one expense',
+        'fuel' => 'Fuel',
+        'internet' => 'Internet',
+        'maintenance' => 'Maintenance',
+        'other' => 'Other',
+        'problem_description' => 'Problem Description',
+        'date_time' => 'Date & Time',
     ]
 ];

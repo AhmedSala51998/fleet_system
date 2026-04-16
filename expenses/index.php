@@ -19,13 +19,13 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
 <div class="">
     <div class="card shadow-lg p-3">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="text-purple"><i class="fa fa-gas-pump"></i> البنزين والصيانة</h3>
+            <h3 class="text-purple"><i class="fa fa-gas-pump"></i> <?= $trans[$lang]['expenses'] ?></h3>
             <button class="btn btn-dark" id="bulkEditExpensesBtn">
-                <i class="fa fa-edit"></i> تعديل جماعي
+                <i class="fa fa-edit"></i> <?= $trans[$lang]['bulk_edit_expenses'] ?>
             </button>
 
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addMultipleExpensesModal">
-                <i class="fa fa-plus"></i> إضافة متعدد
+                <i class="fa fa-plus"></i> <?= $trans[$lang]['add_multiple_expenses'] ?>
             </button>
         </div>
 
@@ -35,13 +35,13 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
                     <tr data-image="<?php echo $row['invoice_image']; ?>">
                         <th><input type="checkbox" id="selectAllExpenses"></th>
                         <th>ID</th>
-                        <th>السائق</th>
-                        <th>نوع الخدمة</th>
-                        <th>المبلغ</th>
-                        <th>وصف العطل</th>
-                        <th>الفاتورة</th>
-                        <th>التاريخ</th>
-                        <th>إجراءات</th>
+                        <th><?= $trans[$lang]['driver'] ?></th>
+                        <th><?= $trans[$lang]['service_type'] ?></th>
+                        <th><?= $trans[$lang]['amount'] ?></th>
+                        <th><?= $trans[$lang]['problem_description'] ?></th>
+                        <th><?= $trans[$lang]['invoice'] ?></th>
+                        <th><?= $trans[$lang]['date'] ?></th>
+                        <th><?= $trans[$lang]['actions'] ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -60,7 +60,7 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
                         </td>
                         <td><?php echo $row['created_at']; ?></td>
                         <td>
-                            <button onclick="deleteItem('delete.php?id=<?php echo $row['id']; ?>')" class="btn btn-danger btn-sm mb-1 gradient-danger" data-bs-toggle="tooltip" title="حذف العملية">
+                            <button onclick="deleteItem('delete.php?id=<?php echo $row['id']; ?>')" class="btn btn-danger btn-sm mb-1 gradient-danger" data-bs-toggle="tooltip" title="<?= $trans[$lang]['delete_expense'] ?>">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>
@@ -78,7 +78,7 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
     <form id="bulkEditExpensesForm" enctype="multipart/form-data">
       <div class="modal-content">
         <div class="modal-header bg-dark text-white">
-          <h5>تعديل جماعي للعمليات</h5>
+          <h5><?= $trans[$lang]['bulk_edit_expenses'] ?></h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
@@ -86,19 +86,19 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
             <thead class="table-dark">
               <tr>
                 <th>ID</th>
-                <th>السائق</th>
-                <th>نوع الخدمة</th>
-                <th>المبلغ</th>
-                <th>وصف العطل/أخرى</th>
-                <th>الفاتورة</th>
-                <th>التاريخ والوقت</th>
+                <th><?= $trans[$lang]['driver'] ?></th>
+                <th><?= $trans[$lang]['service_type'] ?></th>
+                <th><?= $trans[$lang]['amount'] ?></th>
+                <th><?= $trans[$lang]['problem_description'] ?></th>
+                <th><?= $trans[$lang]['invoice'] ?></th>
+                <th><?= $trans[$lang]['date_time'] ?></th>
               </tr>
             </thead>
             <tbody id="bulkExpensesContainer"></tbody>
           </table>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-dark">حفظ</button>
+          <button class="btn btn-dark"><?= $trans[$lang]['save'] ?></button>
         </div>
       </div>
     </form>
@@ -110,7 +110,7 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
     <form id="addMultipleExpensesForm" enctype="multipart/form-data">
       <div class="modal-content">
         <div class="modal-header bg-success text-white">
-          <h5>إضافة عمليات متعددة</h5>
+          <h5><?= $trans[$lang]['add_multiple_expenses'] ?></h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
@@ -118,13 +118,13 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
             <thead class="table-success">
               <tr>
                 <th>#</th>
-                <th>السائق</th>
-                <th>نوع الخدمة</th>
-                <th>المبلغ</th>
-                <th>وصف العطل/أخرى</th>
-                <th>الفاتورة</th>
-                <th>التاريخ والوقت</th>
-                <th>حذف</th>
+                <th><?= $trans[$lang]['driver'] ?></th>
+                <th><?= $trans[$lang]['service_type'] ?></th>
+                <th><?= $trans[$lang]['amount'] ?></th>
+                <th><?= $trans[$lang]['problem_description'] ?></th>
+                <th><?= $trans[$lang]['invoice'] ?></th>
+                <th><?= $trans[$lang]['date_time'] ?></th>
+                <th><?= $trans[$lang]['actions'] ?></th>
               </tr>
             </thead>
             <tbody id="multiExpensesContainer">
@@ -137,10 +137,10 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
                 </td>
                 <td>
                   <select name="service_type[]" class="form-select service-type">
-                    <option value="fuel">بنزين</option>
-                    <option value="internet">انترنت</option>
-                    <option value="maintenance">عطل وصيانة</option>
-                    <option value="other">أخرى</option>
+                    <option value="fuel"><?= $trans[$lang]['fuel'] ?></option>
+                    <option value="internet"><?= $trans[$lang]['internet'] ?></option>
+                    <option value="maintenance"><?= $trans[$lang]['maintenance'] ?></option>
+                    <option value="other"><?= $trans[$lang]['other'] ?></option>
                   </select>
                 </td>
                 <td><input type="number" name="amount[]" class="form-control" step="0.01"></td>
@@ -160,10 +160,10 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
               </tr>
             </tbody>
           </table>
-          <button type="button" class="btn btn-success" id="addExpenseRow">إضافة صف</button>
+          <button type="button" class="btn btn-success" id="addExpenseRow"><?= $trans[$lang]['add_row'] ?></button>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-success">حفظ</button>
+          <button class="btn btn-success"><?= $trans[$lang]['save'] ?></button>
         </div>
       </div>
     </form>
@@ -240,12 +240,12 @@ while($driver = mysqli_fetch_assoc($drivers_q)){
 
 function deleteItem(url){
     Swal.fire({
-        title: 'هل أنت متأكد؟',
-        text: "لن تستطيع التراجع!",
+        title: '<?php echo $trans[$lang]["confirm_delete"]; ?>',
+        text: '<?php echo $trans[$lang]["warning_delete"]; ?>',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'نعم احذف',
-        cancelButtonText: 'إلغاء'
+        confirmButtonText: '<?php echo $trans[$lang]["yes_delete"]; ?>',
+        cancelButtonText: '<?php echo $trans[$lang]["cancel"]; ?>'
     }).then((result) => {
         if (result.isConfirmed) {
             window.location = url;
@@ -257,7 +257,7 @@ $(document).ready(function(){
 
     // ===== DataTable =====
     $('#expensesTable').DataTable({
-        language: {"url":"//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"},
+        "language": {"url": "<?php echo ($lang=='ar') ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json' : '//cdn.datatables.net/plug-ins/1.13.4/i18n/English.json'; ?>"},
         pageLength:10,lengthMenu:[5,10,20,50],ordering:true,info:true,responsive:true
     });
 
@@ -268,8 +268,12 @@ $(document).ready(function(){
     // ===== حذف عملية =====
     window.deleteItem = function(url){
         Swal.fire({
-            title:'هل أنت متأكد؟',text:"لن تستطيع التراجع!",icon:'warning',
-            showCancelButton:true,confirmButtonText:'نعم احذف',cancelButtonText:'إلغاء'
+            title: '<?php echo $trans[$lang]["confirm_delete"]; ?>',
+            text: '<?php echo $trans[$lang]["warning_delete"]; ?>',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '<?php echo $trans[$lang]["yes_delete"]; ?>',
+            cancelButtonText: '<?php echo $trans[$lang]["cancel"]; ?>'
         }).then(result=>{ if(result.isConfirmed){ window.location=url; } });
     }
 
@@ -350,7 +354,7 @@ $(document).ready(function(){
             });
         });
 
-        if(selected.length==0){ alert('اختار عملية واحدة على الأقل'); return; }
+        if(selected.length==0){ alert('<?php echo $trans[$lang]["select_one_expense"]; ?>'); return; }
 
         let html='';
         selected.forEach(v=>{
@@ -365,10 +369,10 @@ $(document).ready(function(){
                     </td>
                     <td>
                         <select name="service_type[]" class="form-select service-type">
-                            <option value="fuel" ${v.type=='fuel'?'selected':''}>بنزين</option>
-                            <option value="internet" ${v.type=='internet'?'selected':''}>انترنت</option>
-                            <option value="maintenance" ${v.type=='maintenance'?'selected':''}>عطل وصيانة</option>
-                            <option value="other" ${v.type=='other'?'selected':''}>أخرى</option>
+                            <option value="fuel" ${v.type=='fuel'?'selected':''}><?= $trans[$lang]['fuel'] ?></option>
+                            <option value="internet" ${v.type=='internet'?'selected':''}><?= $trans[$lang]['internet'] ?></option>
+                            <option value="maintenance" ${v.type=='maintenance'?'selected':''}><?= $trans[$lang]['maintenance'] ?></option>
+                            <option value="other" ${v.type=='other'?'selected':''}><?= $trans[$lang]['other'] ?></option>
                         </select>
                     </td>
                     <td><input type="number" name="amount[]" value="${v.amount}" class="form-control" step="0.01"></td>
@@ -417,7 +421,7 @@ $('#addMultipleExpensesForm').submit(function(e){
         processData: false,
         contentType: false,
         success: function(){
-            Swal.fire('تمت الإضافة', '', 'success');
+            Swal.fire('<?php echo $trans[$lang]["add_success"]; ?>', '', 'success');
             setTimeout(()=> location.reload(),500);
         }
     });
@@ -432,7 +436,7 @@ $('#bulkEditExpensesForm').submit(function(e){
         processData: false,
         contentType: false,
         success: function(){
-            Swal.fire('تم التحديث', '', 'success');
+            Swal.fire('<?php echo $trans[$lang]["update_success"]; ?>', '', 'success');
             setTimeout(()=> location.reload(),500);
         }
     });

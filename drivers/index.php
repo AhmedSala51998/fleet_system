@@ -8,12 +8,12 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
 <div class="">
     <div class="card shadow-lg p-3">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="text-purple"><i class="fa fa-users"></i> السائقين</h3>
+            <h3 class="text-purple"><i class="fa fa-users"></i> <?php echo $t['drivers']; ?></h3>
             <button class="btn btn-dark" id="bulkEditBtn">
-                <i class="fa fa-edit"></i> تعديل جماعي
+                <i class="fa fa-edit"></i> <?php echo $t['bulk_edit']; ?>
             </button>
             <button class="btn btn-success gradient-btn" data-bs-toggle="modal" data-bs-target="#addMultipleDriversModal">
-                <i class="fa fa-plus"></i> إضافة سائقين متعددة
+                <i class="fa fa-plus"></i> <?php echo $t['add_multiple']; ?>
             </button>
         </div>
 
@@ -23,13 +23,13 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
                     <tr>
                         <th><input type="checkbox" id="selectAll"></th>
                         <th>ID</th>
-                        <th>رقم الإقامة</th>
-                        <th>اسم السائق</th>
-                        <th>رقم الرخصة</th>
-                        <th>النوع</th>
-                        <th>الراتب</th>
-                        <th>المركبة</th>
-                        <th>إجراءات</th>
+                        <th><?php echo $t['iqama']; ?></th>
+                        <th><?php echo $t['name']; ?></th>
+                        <th><?php echo $t['license']; ?></th>
+                        <th><?php echo $t['type']; ?></th>
+                        <th><?php echo $t['salary']; ?></th>
+                        <th><?php echo $t['vehicle']; ?></th>
+                        <th><?php echo $t['actions']; ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,7 +71,7 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
       <div class="modal-content">
 
         <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title">تعديل جماعي للسائقين</h5>
+          <h5 class="modal-title"><?php echo $t['bulk_edit']; ?></h5>
           <button type="button" class="btn-close btn-close-white me-auto" data-bs-dismiss="modal"></button>
         </div>
 
@@ -81,11 +81,11 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
               <thead class="table-dark">
                 <tr>
                   <th>ID</th>
-                  <th>الإقامة</th>
-                  <th>الاسم</th>
-                  <th>الرخصة</th>
-                  <th>النوع</th>
-                  <th>الراتب</th>
+                  <th><?php echo $t['iqama']; ?></th>
+                  <th><?php echo $t['name']; ?></th>
+                  <th><?php echo $t['license']; ?></th>
+                  <th><?php echo $t['type']; ?></th>
+                  <th><?php echo $t['salary']; ?></th>
                 </tr>
               </thead>
               <tbody id="bulkEditContainer"></tbody>
@@ -94,7 +94,7 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-dark">حفظ التعديلات</button>
+          <button type="submit" class="btn btn-dark"><?php echo $t['save_all']; ?></button>
         </div>
 
       </div>
@@ -109,12 +109,12 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
       <input type="hidden" name="driver_id" id="vehicleDriverId">
       <div class="modal-content">
         <div class="modal-header bg-info text-white">
-          <h5 class="modal-title">ربط مركبة بالسائق</h5>
+          <h5 class="modal-title"><?php echo $t['link_vehicle']; ?></h5>
           <button type="button" class="btn-close btn-close-white me-auto" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <select name="vehicle_id" id="vehicleSelect" class="form-select mb-3">
-            <option value="">اختر مركبة</option>
+            <option value=""><?php echo $t['choose_vehicle']; ?></option>
             <?php
             $vehicles = mysqli_query($conn,"SELECT * FROM vehicles");
             while($v = mysqli_fetch_assoc($vehicles)){
@@ -132,25 +132,25 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
           <div id="vehicleDetails" style="display:none;">
             <div class="vehicle-card">
                 <div class="vehicle-card-header">
-                    <i class="fa fa-car"></i> استمارة المركبة
+                    <i class="fa fa-car"></i> <?php echo $t['vehicle_form']; ?>
                 </div>
 
                 <div class="vehicle-card-body">
                     <div class="row">
                         <div class="col-6">
-                            <label>رقم اللوحة</label>
+                            <label><?php echo $t['plate_number']; ?></label>
                             <div class="value" id="v_plate"></div>
                         </div>
                         <div class="col-6">
-                            <label>موديل المركبة</label>
+                            <label><?php echo $t['vehicle_model']; ?></label>
                             <div class="value" id="v_model"></div>
                         </div>
                         <div class="col-6">
-                            <label>نوع المركبة</label>
+                            <label><?php echo $t['vehicle_type']; ?></label>
                             <div class="value" id="v_type"></div>
                         </div>
                         <div class="col-6">
-                            <label>الملكية</label>
+                            <label><?php echo $t['ownership']; ?></label>
                             <div class="value" id="v_owner"></div>
                         </div>
                     </div>
@@ -163,7 +163,7 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
         </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-info gradient-info">ربط</button>
+          <button type="submit" class="btn btn-info gradient-info"><?php echo $t['link_vehicle']; ?></button>
         </div>
       </div>
     </form>
@@ -177,7 +177,7 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
       <div class="modal-content">
         
         <div class="modal-header bg-success text-white">
-          <h5 class="modal-title">إضافة عدة سائقين</h5>
+          <h5 class="modal-title"><?php echo $t['add_multiple']; ?></h5>
           <button type="button" class="btn-close btn-close-white me-auto" data-bs-dismiss="modal"></button>
         </div>
 
@@ -188,12 +188,12 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
               <thead class="table-success">
                 <tr>
                   <th>#</th>
-                  <th>رقم الإقامة</th>
-                  <th>اسم السائق</th>
-                  <th>رقم الرخصة</th>
-                  <th>النوع</th>
-                  <th>الراتب</th>
-                  <th>حذف</th>
+                  <th><?php echo $t['iqama']; ?></th>
+                  <th><?php echo $t['name']; ?></th>
+                  <th><?php echo $t['license']; ?></th>
+                  <th><?php echo $t['type']; ?></th>
+                  <th><?php echo $t['salary']; ?></th>
+                  <th><?php echo $t['delete']; ?></th>
                 </tr>
               </thead>
 
@@ -226,13 +226,13 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
           </div>
 
           <button type="button" class="btn btn-success mt-2" id="addRowMultiple">
-            <i class="fa fa-plus"></i> إضافة صف
+            <i class="fa fa-plus"></i> <?php echo $t['add_row']; ?>
           </button>
 
         </div>
 
         <div class="modal-footer">
-          <button type="submit" class="btn btn-success">حفظ الكل</button>
+          <button type="submit" class="btn btn-success"><?php echo $t['save_all']; ?></button>
         </div>
 
       </div>
@@ -371,6 +371,16 @@ $q = mysqli_query($conn,"SELECT drivers.*, vehicles.plate_number, vehicles.vehic
 .modal-body {
     background: #f8f9fc;
 }
+
+.table {
+    text-align: <?php echo ($lang=='ar') ? 'right' : 'left'; ?>;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    direction: <?php echo ($lang=='ar') ? 'rtl' : 'ltr'; ?>;
+}
 </style>
 
 <!-- jQuery FIRST -->
@@ -409,7 +419,7 @@ $(document).ready(function() {
 
     // DataTable
     $('#driversTable').DataTable({
-        "language": { "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json" },
+        "language": {"url": "<?php echo ($lang=='ar') ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json' : '//cdn.datatables.net/plug-ins/1.13.4/i18n/English.json'; ?>"},
         "pageLength": 10,
         "lengthMenu": [5,10,20,50],
         "ordering": true,
@@ -559,7 +569,7 @@ $(document).ready(function() {
         e.preventDefault();
         $.post('add.php', $(this).serialize(), function(res){
             $('#addDriverModal').modal('hide');
-            showToast('تم إضافة السائق بنجاح');
+            showToast('<?php echo $t['toast_add_driver']; ?>');
             setTimeout(()=> location.reload(),500);
         });
     });
@@ -568,7 +578,7 @@ $(document).ready(function() {
         e.preventDefault();
         $.post('edit.php', $(this).serialize(), function(res){
             $('#editDriverModal').modal('hide');
-            showToast('تم تحديث بيانات السائق');
+            showToast('<?php echo $t['toast_update_driver']; ?>');
             setTimeout(()=> location.reload(),500);
         });
     });
@@ -577,7 +587,7 @@ $(document).ready(function() {
         e.preventDefault();
         $.post('link_vehicle.php', $(this).serialize(), function(res){
             $('#linkVehicleModal').modal('hide');
-            showToast('تم ربط المركبة بالسائق');
+            showToast('<?php echo $t['toast_link_vehicle']; ?>');
             setTimeout(()=> location.reload(),500);
         });
     });
@@ -586,7 +596,7 @@ $(document).ready(function() {
         e.preventDefault();
         $.post('add_multiple.php', $(this).serialize(), function(res){
             $('#addMultipleDriversModal').modal('hide');
-            showToast('تم إضافة السائقين بنجاح');
+            showToast('<?php echo $t['toast_add_multiple']; ?>');
             setTimeout(()=> location.reload(),500);
         });
     });
@@ -598,12 +608,12 @@ $(document).ready(function() {
 // =========================
 function deleteItem(url){
     Swal.fire({
-        title: 'هل أنت متأكد؟',
-        text: "لن تستطيع التراجع!",
+        title: '<?php echo $t['confirm_delete']; ?>',
+        text: "<?php echo $t['warning_delete']; ?>",
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'نعم احذف',
-        cancelButtonText: 'إلغاء'
+        confirmButtonText: '<?php echo $t['yes_delete']; ?>',
+        cancelButtonText: '<?php echo $t['cancel']; ?>'
     }).then((result) => {
         if(result.isConfirmed){
             window.location = url;
@@ -637,7 +647,7 @@ $('#bulkEditBtn').click(function(){
     });
 
     if(selected.length == 0){
-        alert('اختار سائق واحد على الأقل');
+        alert('<?php echo $t['select_one_driver']; ?>');
         return;
     }
 
@@ -678,7 +688,7 @@ $('#bulkEditForm').submit(function(e){
 
     $.post('bulk_update.php', $(this).serialize(), function(){
         $('#bulkEditModal').modal('hide');
-        showToast('تم تحديث السائقين');
+        showToast('<?php echo $t['toast_bulk_update']; ?>');
         setTimeout(()=> location.reload(),500);
     });
 });
@@ -690,10 +700,10 @@ $('#linkVehicleForm').submit(function(e){
 
         if(res.trim() === 'success'){
             $('#linkVehicleModal').modal('hide');
-            showToast('تم ربط المركبة بالسائق');
+            showToast('<?php echo $t['toast_link_vehicle']; ?>');
             setTimeout(()=> location.reload(),500);
         }else{
-            showToast('حصل خطأ', 'error');
+            showToast('<?php echo $t['error_msg']; ?>', 'error');
         }
 
     });

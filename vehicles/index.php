@@ -8,13 +8,13 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
 <div class="">
     <div class="card shadow-lg p-3">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h3 class="text-purple"><i class="fa fa-car"></i> المركبات</h3>
+            <h3 class="text-purple"><i class="fa fa-car"></i> <?php echo $t['vehicles']; ?></h3>
             <button class="btn btn-dark" id="bulkEditVehiclesBtn">
-                <i class="fa fa-edit"></i> تعديل جماعي
+                <i class="fa fa-edit"></i> <?php echo $t['bulk_edit']; ?>
             </button>
 
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addMultipleVehiclesModal">
-                <i class="fa fa-plus"></i> إضافة مركبات
+                <i class="fa fa-plus"></i> <?php echo $t['add_vehicles']; ?>
             </button>
         </div>
 
@@ -24,12 +24,12 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
                     <tr>
                         <th><input type="checkbox" id="selectAllVehicles"></th>
                         <th>ID</th>
-                        <th>نوع المركبة</th>
-                        <th>موديل المركبة</th>
-                        <th>الملكية</th>
-                        <th>رقم اللوحة</th>
-                        <th>الاستمارة</th>
-                        <th>إجراءات</th>
+                        <th><?php echo $t['type']; ?></th>
+                        <th><?php echo $t['model']; ?></th>
+                        <th><?php echo $t['ownership']; ?></th>
+                        <th><?php echo $t['plate']; ?></th>
+                        <th><?php echo $t['image']; ?></th>
+                        <th><?php echo $t['actions']; ?></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,7 +67,7 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
       <div class="modal-content">
 
         <div class="modal-header bg-dark text-white">
-          <h5>تعديل جماعي للمركبات</h5>
+          <h5><?php echo $t['bulk_edit']; ?></h5>
           <!-- زر الإغلاق -->
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
@@ -77,11 +77,11 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
             <thead class="table-dark">
               <tr>
                 <th>ID</th>
-                <th>النوع</th>
-                <th>الموديل</th>
-                <th>الملكية</th>
-                <th>رقم اللوحة</th>
-                <th>الصورة</th>
+                <th><?php echo $t['type']; ?></th>
+                <th><?php echo $t['model']; ?></th>
+                <th><?php echo $t['ownership']; ?></th>
+                <th><?php echo $t['plate']; ?></th>
+                <th><?php echo $t['image']; ?></th>
               </tr>
             </thead>
             <tbody id="bulkVehiclesContainer"></tbody>
@@ -89,7 +89,7 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-dark">حفظ</button>
+          <button class="btn btn-dark"><?php echo $t['save']; ?></button>
         </div>
 
       </div>
@@ -104,7 +104,7 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
       <div class="modal-content">
 
         <div class="modal-header bg-success text-white">
-          <h5>إضافة مركبات متعددة</h5>
+          <h5><?php echo $t['add_multiple']; ?></h5>
         </div>
 
         <div class="modal-body">
@@ -113,12 +113,12 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
             <thead class="table-success">
               <tr>
                 <th>#</th>
-                <th>النوع</th>
-                <th>الموديل</th>
-                <th>الملكية</th>
-                <th>رقم اللوحة</th>
-                <th>الاستمارة</th>
-                <th>حذف</th>
+                <th><?php echo $t['type']; ?></th>
+                <th><?php echo $t['model']; ?></th>
+                <th><?php echo $t['ownership']; ?></th>
+                <th><?php echo $t['plate']; ?></th>
+                <th><?php echo $t['image']; ?></th>
+                <th><?php echo $t['actions']; ?></th>
               </tr>
             </thead>
 
@@ -131,8 +131,8 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
 
                 <td>
                   <select name="ownership[]" class="form-select">
-                    <option value="company">شركة</option>
-                    <option value="rented">مستأجرة</option>
+                    <option value="company"><?php echo $t['company']; ?></option>
+                    <option value="rented"><?php echo $t['rented']; ?></option>
                   </select>
                 </td>
 
@@ -152,13 +152,13 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
           </table>
 
           <button type="button" class="btn btn-success" id="addVehicleRow">
-            إضافة صف
+            <?php echo $t['add_row']; ?>
           </button>
 
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-success">حفظ</button>
+          <button class="btn btn-success"><?php echo $t['save']; ?></button>
         </div>
 
       </div>
@@ -234,9 +234,7 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
 <script>
 $(document).ready(function() {
     $('#vehiclesTable').DataTable({
-        "language": {
-            "url": "//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"
-        },
+        "language": {"url": "<?php echo ($lang=='ar') ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json' : '//cdn.datatables.net/plug-ins/1.13.4/i18n/English.json'; ?>"},
         "pageLength": 10,
         "lengthMenu": [5,10,20,50],
         "ordering": true,
@@ -250,12 +248,12 @@ $(document).ready(function() {
 
 function deleteItem(url){
     Swal.fire({
-        title: 'هل أنت متأكد؟',
-        text: "لن تستطيع التراجع!",
+        title: '<?php echo $t['confirm_delete']; ?>',
+        text: '<?php echo $t['delete_warning']; ?>',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'نعم احذف',
-        cancelButtonText: 'إلغاء'
+        confirmButtonText: '<?php echo $t['yes_delete']; ?>',
+        cancelButtonText: '<?php echo $t['cancel']; ?>'
     }).then((result) => {
         if (result.isConfirmed) {
             window.location = url;
@@ -288,7 +286,7 @@ $('#bulkEditVehiclesBtn').click(function(){
     });
 
     if(selected.length == 0){
-        alert('اختار مركبة واحدة على الأقل');
+        alert('<?php echo $t['select_one_vehicle_alert']; ?>');
         return;
     }
 
@@ -315,8 +313,8 @@ $('#bulkEditVehiclesBtn').click(function(){
 
             <td>
                 <select name="ownership[]" class="form-select">
-                    <option value="company" ${v.ownership=='company'?'selected':''}>شركة</option>
-                    <option value="rented" ${v.ownership=='rented'?'selected':''}>مستأجرة</option>
+                    <option value="company" ${v.ownership=='company'?'selected':''}><?php echo $t['company']; ?></option>
+                    <option value="rented" ${v.ownership=='rented'?'selected':''}><?php echo $t['rented']; ?></option>
                 </select>
             </td>
 
@@ -349,7 +347,7 @@ $('#bulkEditVehiclesForm').submit(function(e){
         processData: false,
         contentType: false,
         success: function(){
-            Swal.fire('تم التحديث', '', 'success');
+            Swal.fire('<?php echo $t['update_success']; ?>', '', 'success');
             setTimeout(()=> location.reload(),500);
         }
     });
@@ -389,7 +387,7 @@ $('#addMultipleVehiclesForm').submit(function(e){
         processData: false,
         contentType: false,
         success: function(){
-            Swal.fire('تمت الإضافة', '', 'success');
+            Swal.fire('<?php echo $t['add_success']; ?>', '', 'success');
             setTimeout(()=> location.reload(),500);
         }
     });

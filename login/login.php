@@ -1,6 +1,15 @@
 <?php
 session_start();
 include("../includes/db.php");
+include("../includes/lang.php");
+session_start();
+
+if(isset($_GET['lang'])){
+    $_SESSION['lang'] = $_GET['lang'];
+}
+
+$lang = $_SESSION['lang'] ?? 'ar';
+$t = $trans[$lang];
 
 $error = "";
 
@@ -21,10 +30,10 @@ if(isset($_POST['login'])){
 ?>
 
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="<?php echo $lang; ?>" dir="<?php echo $dir; ?>">
 <head>
     <meta charset="UTF-8">
-    <title>تسجيل الدخول</title>
+    <title><?php echo $t['login_title']; ?></title>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -40,6 +49,8 @@ if(isset($_POST['login'])){
             justify-content: center;
             align-items: center;
             font-family: 'Tajawal', sans-serif;
+            direction: <?php echo $dir; ?>;
+            text-align: <?php echo $textAlign; ?>;
         }
 
         .login-card {
@@ -86,6 +97,40 @@ if(isset($_POST['login'])){
             color: #4e73df;
             margin-bottom: 10px;
         }
+        .input-group {
+            direction: ltr; /* يخلي ترتيب الأيقونة + input ثابت */
+        }
+
+        [dir="rtl"] .input-group {
+            flex-direction: row-reverse;
+        }
+
+        [dir="rtl"] .input-group-text {
+            border-radius: 0 10px 10px 0;
+        }
+
+        [dir="ltr"] .input-group-text {
+            border-radius: 10px 0 0 10px;
+        }
+        [dir="rtl"] input,
+        [dir="rtl"] label {
+            text-align: right;
+        }
+
+        [dir="ltr"] input,
+        [dir="ltr"] label {
+            text-align: left;
+        }
+        [dir="rtl"] .btn-login {
+            text-align: center;
+        }
+        [dir="rtl"] .login-card {
+            text-align: right;
+        }
+
+        [dir="ltr"] .login-card {
+            text-align: left;
+        }
     </style>
 </head>
 
@@ -96,7 +141,7 @@ if(isset($_POST['login'])){
         <i class="fa fa-user-shield"></i>
     </div>
 
-    <h3>تسجيل دخول الأدمن</h3>
+    <h3><?php echo $t['admin_login']; ?></h3>
 
     <?php if($error != ""){ ?>
         <div class="alert alert-danger"><?php echo $error; ?></div>
@@ -105,7 +150,7 @@ if(isset($_POST['login'])){
     <form method="POST">
 
         <div class="mb-3">
-            <label>اسم المستخدم</label>
+            <label><?php echo $t['username']; ?></label>
             <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-user"></i></span>
                 <input type="text" name="username" class="form-control" required>
@@ -113,14 +158,14 @@ if(isset($_POST['login'])){
         </div>
 
         <div class="mb-3">
-            <label>كلمة المرور</label>
+            <label><?php echo $t['password']; ?></label>
             <div class="input-group">
                 <span class="input-group-text"><i class="fa fa-lock"></i></span>
                 <input type="password" name="password" class="form-control" required>
             </div>
         </div>
 
-        <button name="login" class="btn btn-login">تسجيل الدخول</button>
+        <button name="login" class="btn btn-login"><?php echo $t['login_btn']; ?></button>
 
     </form>
 </div>

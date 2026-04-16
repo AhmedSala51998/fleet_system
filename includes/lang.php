@@ -174,6 +174,12 @@ $trans = [
         'total' => 'الإجمالي',
         'grand_total' => 'الإجمالي الكلي',
         'drivers_report_file' => 'تقرير السائقين',
+        'login_title' => 'تسجيل دخول الأدمن',
+        'username' => 'اسم المستخدم',
+        'password' => 'كلمة المرور',
+        'login_btn' => 'تسجيل الدخول',
+        'login_error' => 'اسم المستخدم أو كلمة المرور غير صحيحة',
+        'admin_login' => 'تسجيل الدخول',
     ],
 
     'en' => [
@@ -348,5 +354,11 @@ $trans = [
         'total' => 'Total',
         'grand_total' => 'Grand Total',
         'drivers_report_file' => 'Drivers Report',
+        'login_title' => 'Admin Login',
+        'username' => 'Username',
+        'password' => 'Password',
+        'login_btn' => 'Login',
+        'login_error' => 'Invalid username or password',
+        'admin_login' => 'Login',
     ]
 ];

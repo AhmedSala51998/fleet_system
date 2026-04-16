@@ -85,6 +85,10 @@ $t = $trans[$lang];
             color: #224abe;
         }
 
+        .sidebar a i {
+            <?php echo ($lang == 'ar') ? 'margin-left:10px;' : 'margin-right:10px;'; ?>
+        }
+
         /* Content */
         .content {
             <?php echo ($lang == 'ar') ? 'margin-right:270px;' : 'margin-left:270px;'; ?>

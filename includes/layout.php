@@ -12,7 +12,7 @@ $lang = $_SESSION['lang'] ?? 'ar';
 $t = $trans[$lang];
 ?>
 <!DOCTYPE html>
-<html lang="<?php echo $lang; ?>" dir="rtl">
+<html lang="<?php echo $lang; ?>" dir="<?php echo ($lang == 'ar') ? 'rtl' : 'ltr'; ?>">
 <head>
     <meta charset="UTF-8">
     <title><?php echo $t['dashboard']; ?></title>
@@ -138,30 +138,30 @@ $t = $trans[$lang];
 
 <!-- Sidebar -->
 <div class="sidebar">
-    <h4><i class="fa fa-car"></i> لوحة التحكم</h4>
+    <h4><i class="fa fa-car"></i> <?php echo $t['dashboard']; ?></h4>
 
     <a href="/dashboard.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='dashboard.php') echo 'active'; ?>">
-        <i class="fa fa-home"></i> الرئيسية
+        <i class="fa fa-home"></i> <?php echo $t['home']; ?>
     </a>
 
     <a href="/drivers/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'drivers')) echo 'active'; ?>">
-        <i class="fa fa-user"></i> السائقين
+        <i class="fa fa-user"></i> <?php echo $t['drivers']; ?>
     </a>
 
     <a href="/vehicles/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'vehicles')) echo 'active'; ?>">
-        <i class="fa fa-car"></i> المركبات
+        <i class="fa fa-car"></i> <?php echo $t['vehicles']; ?>
     </a>
 
     <a href="/expenses/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'expenses')) echo 'active'; ?>">
-        <i class="fa fa-gas-pump"></i> البنزين والصيانة
+        <i class="fa fa-gas-pump"></i> <?php echo $t['expenses']; ?>
     </a>
 
     <a href="/reports/index.php" class="<?php if(basename($_SERVER['PHP_SELF'])=='index.php' && strpos($_SERVER['PHP_SELF'],'reports')) echo 'active'; ?>">
-        <i class="fa fa-chart-bar"></i> التقارير
+        <i class="fa fa-chart-bar"></i> <?php echo $t['reports']; ?>
     </a>
 
     <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
-        <i class="fa fa-sign-out"></i> تسجيل خروج
+        <i class="fa fa-sign-out"></i> <?php echo $t['logout']; ?>
     </a>
 </div>
 
@@ -177,14 +177,30 @@ $t = $trans[$lang];
     font-weight: bold;
     font-size: 18px;
 ">
+    
+    <!-- Left / Welcome -->
     <div>
-        <i class="fa fa-user-circle me-2"></i> مرحباً، <?php echo $_SESSION['admin']; ?>
+        <i class="fa fa-user-circle me-2"></i>
+        <?php echo $t['welcome']; ?>, <?php echo $_SESSION['admin']; ?>
     </div>
-    <div>
-        <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal" class="btn btn-light btn-sm" style="border-radius:10px;">
-            <i class="fa fa-sign-out"></i> تسجيل خروج
+
+    <!-- Right / Actions -->
+    <div class="d-flex align-items-center gap-2">
+
+        <!-- Language Switch -->
+        <div class="btn-group" role="group" style="border-radius:10px; overflow:hidden;">
+            <a href="?lang=ar" class="btn btn-sm btn-light">AR</a>
+            <a href="?lang=en" class="btn btn-sm btn-dark">EN</a>
+        </div>
+
+        <!-- Logout -->
+        <a href="#" data-bs-toggle="modal" data-bs-target="#logoutModal" 
+           class="btn btn-light btn-sm" style="border-radius:10px;">
+            <i class="fa fa-sign-out"></i> <?php echo $t['logout']; ?>
         </a>
+
     </div>
+
 </div>
 
 <!-- Modal -->
@@ -194,19 +210,19 @@ $t = $trans[$lang];
 
       <!-- Header -->
       <div class="modal-header d-flex justify-content-between">
-        <h5 class="modal-title" id="logoutModalLabel">تأكيد الخروج</h5>
+        <h5 class="modal-title" id="logoutModalLabel"><?php echo $t['confirm_logout']; ?></h5>
         <button type="button" class="btn-close ms-0 me-auto" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <!-- Body -->
       <div class="modal-body">
-        هل أنت متأكد أنك تريد تسجيل الخروج؟
+        <?php echo $t['logout_msg']; ?>
       </div>
 
       <!-- Footer -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-        <a href="/login/logout.php" class="btn btn-danger">نعم، تسجيل الخروج</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><?php echo $t['cancel']; ?></button>
+        <a href="/login/logout.php" class="btn btn-danger"><?php echo $t['yes_logout']; ?></a>
       </div>
 
     </div>

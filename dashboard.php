@@ -52,28 +52,6 @@ $other = mysqli_fetch_assoc(mysqli_query($conn,"
 
 <h3><?php echo $t['dashboard_title']; ?></h3>
 
-<style>
-    .stat-card {
-        padding: 20px;
-        border-radius: 15px;
-        color: #fff;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        transition: 0.3s;
-
-        text-align: <?php echo ($lang=='ar') ? 'right' : 'left'; ?>;
-    }
-    .stat-card i {
-        font-size: 40px;
-        position: absolute;
-        bottom: 20px;
-        opacity: 0.3;
-
-        <?php echo ($lang=='ar') ? 'left:20px;' : 'right:20px;'; ?>
-    }
-</style>
-
 <!-- فلتر الشهر -->
 <form method="get" class="mb-4">
     <div class="card p-3 shadow-sm border-0">

@@ -138,6 +138,26 @@ $t = $trans[$lang];
             border-radius: 15px;
             box-shadow: 0 0 10px #ddd;
         }
+
+            .stat-card {
+                padding: 20px;
+                border-radius: 15px;
+                color: #fff;
+                position: relative;
+                overflow: hidden;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                transition: 0.3s;
+
+                text-align: <?php echo ($lang=='ar') ? 'right' : 'left'; ?>;
+            }
+            .stat-card i {
+                font-size: 40px;
+                position: absolute;
+                bottom: 20px;
+                opacity: 0.3;
+
+                <?php echo ($lang=='ar') ? 'left:20px;' : 'right:20px;'; ?>
+            }
     </style>
 </head>
 <body>

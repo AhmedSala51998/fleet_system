@@ -122,6 +122,58 @@ $trans = [
         'other' => 'أخرى',
         'problem_description' => 'وصف العطل',
         'date_time' => 'التاريخ والوقت',
+        'choose_vehicle' => 'اختر مركبة',
+        'delete_vehicle' => 'حذف المركبة',
+        'reports_drivers' => 'تقارير السائقين',
+        'all_drivers' => 'كل السائقين',
+        'export_excel' => 'تصدير Excel',
+        'export_pdf' => 'تصدير PDF',
+
+        'fuel' => 'بنزين',
+        'maintenance' => 'صيانة',
+        'internet' => 'انترنت',
+        'other' => 'أخرى',
+
+        'currency_sar' => 'ريال',
+
+        'total' => 'الإجمالي',
+
+        'driver' => 'السائق',
+        'month' => 'الشهر',
+
+        'filter_month' => 'اختر الشهر',
+        'filter_driver' => 'اختر السائق',
+        'drivers_report' => 'تقرير السائقين',
+        'drivers_data' => 'بيانات السائقين',
+
+        'iqama' => 'الإقامة',
+        'code' => 'الكود',
+        'mobile' => 'الجوال',
+        'details' => 'التفاصيل',
+
+        'days' => 'الأيام',
+
+        'fuel' => 'بنزين',
+        'maintenance' => 'صيانة',
+        'internet' => 'انترنت',
+        'other' => 'أخرى',
+
+        'total' => 'الإجمالي',
+        'total_all_services' => 'إجمالي كل الخدمات',
+        'drivers_data' => 'بيانات السائقين',
+        'name' => 'الاسم',
+        'iqama' => 'رقم الإقامة',
+        'code' => 'الكود',
+        'mobile' => 'الجوال',
+        'days' => 'الأيام',
+        'detail' => 'تفاصيل',
+        'gasoline' => 'بنزين',
+        'maintenance' => 'صيانة',
+        'internet' => 'انترنت',
+        'other' => 'أخرى',
+        'total' => 'الإجمالي',
+        'grand_total' => 'الإجمالي الكلي',
+        'drivers_report_file' => 'تقرير السائقين',
     ],
 
     'en' => [
@@ -244,5 +296,57 @@ $trans = [
         'other' => 'Other',
         'problem_description' => 'Problem Description',
         'date_time' => 'Date & Time',
+        'choose_vehicle' => 'Choose Vehicle',
+        'delete_vehicle' => 'Delete Vehicle',
+        'reports_drivers' => 'Driver Reports',
+        'all_drivers' => 'All Drivers',
+        'export_excel' => 'Export Excel',
+        'export_pdf' => 'Export PDF',
+
+        'fuel' => 'Fuel',
+        'maintenance' => 'Maintenance',
+        'internet' => 'Internet',
+        'other' => 'Other',
+
+        'currency_sar' => 'SAR',
+
+        'total' => 'Total',
+
+        'driver' => 'Driver',
+        'month' => 'Month',
+
+        'filter_month' => 'Select Month',
+        'filter_driver' => 'Select Driver',
+        'drivers_report' => 'Drivers Report',
+        'drivers_data' => 'Drivers Data',
+
+        'iqama' => 'Iqama',
+        'code' => 'Code',
+        'mobile' => 'Mobile',
+        'details' => 'Details',
+
+        'days' => 'Days',
+
+        'fuel' => 'Fuel',
+        'maintenance' => 'Maintenance',
+        'internet' => 'Internet',
+        'other' => 'Other',
+
+        'total' => 'Total',
+        'total_all_services' => 'Total All Services',
+        'drivers_data' => 'Drivers Data',
+        'name' => 'Name',
+        'iqama' => 'Iqama',
+        'code' => 'Code',
+        'mobile' => 'Mobile',
+        'days' => 'Days',
+        'detail' => 'Detail',
+        'gasoline' => 'Gasoline',
+        'maintenance' => 'Maintenance',
+        'internet' => 'Internet',
+        'other' => 'Other',
+        'total' => 'Total',
+        'grand_total' => 'Grand Total',
+        'drivers_report_file' => 'Drivers Report',
     ]
 ];

@@ -23,7 +23,7 @@ while($d = mysqli_fetch_assoc($drivers)){
 $data = [];
 
 /* الصف الأول */
-$row1 = ['Drivers Data'];
+$row1 = [$trans[$lang]['drivers_data']];
 foreach($driverList as $i=>$d){
     $row1[] = $i+1;
     $row1[] = '';
@@ -35,7 +35,7 @@ $data[] = $row1;
 /* Name */
 $row2 = [''];
 foreach($driverList as $d){
-    $row2[] = 'Name';
+    $row2[] = $trans[$lang]['name'];
     $row2[] = $d['driver_name'];
     $row2[] = '';
     $row2[] = '';
@@ -45,7 +45,7 @@ $data[] = $row2;
 /* Iqama */
 $row3 = [''];
 foreach($driverList as $d){
-    $row3[] = 'Iqama';
+    $row3[] = $trans[$lang]['iqama'];
     $row3[] = $d['iqama_number'];
     $row3[] = '';
     $row3[] = '';
@@ -55,7 +55,7 @@ $data[] = $row3;
 /* Code */
 $row4 = [''];
 foreach($driverList as $d){
-    $row4[] = 'Code';
+    $row4[] = $trans[$lang]['code'];
     $row4[] = $d['id'];
     $row4[] = '';
     $row4[] = '';
@@ -65,7 +65,7 @@ $data[] = $row4;
 /* Mobile */
 $row5 = [''];
 foreach($driverList as $d){
-    $row5[] = 'Mobile';
+    $row5[] = $trans[$lang]['mobile'];
     $row5[] = '-';
     $row5[] = '';
     $row5[] = '';
@@ -73,12 +73,12 @@ foreach($driverList as $d){
 $data[] = $row5;
 
 /* Header */
-$header = ['days','Detail'];
+$header = [$trans[$lang]['days'],$trans[$lang]['detail']];
 foreach($driverList as $d){
-    $header[] = 'gasoline';
-    $header[] = 'maintenance';
-    $header[] = 'internet';
-    $header[] = 'other';
+    $header[] = $trans[$lang]['gasoline'];
+    $header[] = $trans[$lang]['maintenance'];
+    $header[] = $trans[$lang]['internet'];
+    $header[] = $trans[$lang]['other'];
 }
 $data[] = $header;
 
@@ -123,7 +123,7 @@ for($day=1;$day<=31;$day++){
 }
 
 // ====== TOTAL ======
-$totalRow = ['Total',''];
+$totalRow = [$trans[$lang]['total'],''];
 
 foreach($driverList as $d){
 
@@ -141,7 +141,7 @@ foreach($driverList as $d){
 $data[] = $totalRow;
 
 // ====== Grand Total ======
-$grand = ['',''];
+$grand = [$trans[$lang]['grand_total'],''];
 
 foreach($driverList as $d){
 
@@ -161,5 +161,5 @@ $data[] = $grand;
 
 // ====== تحميل ======
 $xlsx = Shuchkin\SimpleXLSXGen::fromArray($data);
-$xlsx->downloadAs("drivers_report.xlsx");
+$xlsx->downloadAs($trans[$lang]['drivers_report_file'] . ".xlsx");
 exit;

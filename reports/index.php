@@ -47,7 +47,7 @@ $q = mysqli_query($conn,"
     <!-- HEADER -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="text-purple">
-            <i class="fa fa-chart-bar"></i> تقارير السائقين
+            <i class="fa fa-chart-bar"></i> <?php echo $trans[$lang]['reports_drivers']; ?>
         </h3>
 
         <div class="d-flex gap-2">
@@ -55,7 +55,7 @@ $q = mysqli_query($conn,"
             <input type="month" id="filterMonth" value="<?php echo $month; ?>" class="form-control">
 
             <select id="filterDriver" class="form-control">
-                <option value="">كل السائقين</option>
+                <option value=""><?php echo $trans[$lang]['all_drivers']; ?></option>
                 <?php
                 $drivers_list = mysqli_query($conn,"SELECT id, driver_name FROM drivers");
                 while($drv = mysqli_fetch_assoc($drivers_list)){
@@ -81,29 +81,29 @@ $q = mysqli_query($conn,"
 
         <div class="col-md-3">
             <div class="stat-card bg-blue">
-                <h6>بنزين</h6>
-                <h4><?php echo $totals['fuel']; ?> ريال</h4>
+                <h6><?php echo $trans[$lang]['fuel']; ?></h6>
+                <h4><?php echo $totals['fuel']; ?> <?php echo $trans[$lang]['currency_sar']; ?></h4>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="stat-card bg-orange">
-                <h6>صيانة</h6>
-                <h4><?php echo $totals['maintenance']; ?> ريال</h4>
+                <h6><?php echo $trans[$lang]['maintenance']; ?></h6>
+                <h4><?php echo $totals['maintenance']; ?> <?php echo $trans[$lang]['currency_sar']; ?></h4>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="stat-card bg-green">
-                <h6>انترنت</h6>
-                <h4><?php echo $totals['internet']; ?> ريال</h4>
+                <h6><?php echo $trans[$lang]['internet']; ?></h6>
+                <h4><?php echo $totals['internet']; ?> <?php echo $trans[$lang]['currency_sar']; ?></h4>
             </div>
         </div>
 
         <div class="col-md-3">
             <div class="stat-card bg-red">
-                <h6>أخرى</h6>
-                <h4><?php echo $totals['other']; ?> ريال</h4>
+                <h6><?php echo $trans[$lang]['other']; ?></h6>
+                <h4><?php echo $totals['other']; ?> <?php echo $trans[$lang]['currency_sar']; ?></h4>
             </div>
         </div>
 
@@ -116,12 +116,12 @@ $q = mysqli_query($conn,"
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>السائق</th>
-                    <th>بنزين</th>
-                    <th>صيانة</th>
-                    <th>انترنت</th>
-                    <th>أخرى</th>
-                    <th>الإجمالي</th>
+                    <th><?php echo $trans[$lang]['drivers']; ?></th>
+                    <th><?php echo $trans[$lang]['fuel']; ?></th>
+                    <th><?php echo $trans[$lang]['maintenance']; ?></th>
+                    <th><?php echo $trans[$lang]['internet']; ?></th>
+                    <th><?php echo $trans[$lang]['other']; ?></th>
+                    <th><?php echo $trans[$lang]['total']; ?></th>
                 </tr>
             </thead>
 
@@ -204,9 +204,7 @@ $q = mysqli_query($conn,"
 $(document).ready(function(){
 
     $('#reportTable').DataTable({
-        language: {
-            url: "//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json"
-        }
+        "language": {"url": "<?php echo ($lang=='ar') ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json' : '//cdn.datatables.net/plug-ins/1.13.4/i18n/English.json'; ?>"},
     });
 
     // فلترة بالشهر أو السائق

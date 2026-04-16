@@ -33,11 +33,11 @@ h3{text-align:center;}
 }
 </style>";
 
-$html .= "<h3>Drivers Report - $month</h3>";
+$html .= "<h3>".$trans[$lang]['drivers_report']." - $month</h3>";
 $html .= "<table>";
 
 // Header بيانات السائقين
-$html .= "<tr><td>Drivers Data</td>";
+$html .= "<tr><td>".$trans[$lang]['drivers_data']."</td>";
 foreach($drivers as $index => $d){
     $color = ($index % 2 == 0) ? '#f2f2f2' : '#ffffff'; // تناوب ألوان الأعمدة
     $html .= "<td colspan='5' style='background:$color'>{$d['driver_name']}</td>";
@@ -47,11 +47,11 @@ $html .= "</tr>";
 $html .= "<tr><td></td>";
 foreach($drivers as $index => $d){
     $color = ($index % 2 == 0) ? '#f2f2f2' : '#ffffff';
-    $html .= "<td style='background:$color'>Iqama</td>
-              <td style='background:$color'>Code</td>
-              <td style='background:$color'>Mobile</td>
-              <td style='background:$color'></td>
-              <td style='background:$color'>Detail</td>";
+    $html .= "<td style='background:$color'>".$trans[$lang]['iqama']."</td>
+              <td style='background:$color'>".$trans[$lang]['code']."</td>
+              <td style='background:$color'>".$trans[$lang]['mobile']."</td>
+              <td style='background:$color'>".$trans[$lang]['days']."</td>
+              <td style='background:$color'>".$trans[$lang]['details']."</td>";
 }
 $html .= "</tr>";
 
@@ -67,14 +67,14 @@ foreach($drivers as $index => $d){
 $html .= "</tr>";
 
 // Header الأيام والخدمات
-$html .= "<tr><th>Days</th>";
+$html .= "<tr><th>".$trans[$lang]['days']."</th>";
 foreach($drivers as $index => $d){
     $color = ($index % 2 == 0) ? '#f2f2f2' : '#ffffff';
-    $html .= "<th style='background:$color'>Gasoline</th>
-              <th style='background:$color'>Maintenance</th>
-              <th style='background:$color'>Internet</th>
-              <th style='background:$color'>Other</th>
-              <th style='background:$color'>Detail</th>";
+    $html .= "<th style='background:$color'>".$trans[$lang]['fuel']."</th>
+              <th style='background:$color'>".$trans[$lang]['maintenance']."</th>
+              <th style='background:$color'>".$trans[$lang]['internet']."</th>
+              <th style='background:$color'>".$trans[$lang]['other']."</th>
+              <th style='background:$color'>".$trans[$lang]['details']."</th>";
 }
 $html .= "</tr>";
 
@@ -132,7 +132,7 @@ for($day=1; $day<=31; $day++){
 }
 
 // Total لكل سائق لكل خدمة
-$html .= "<tr style='background:#f2dede'><td>Total</td>";
+$html .= "<tr style='background:#f2dede'><td>".$trans[$lang]['total']."</td>";
 foreach($drivers as $index => $d){
     $color = ($index % 2 == 0) ? '#f2f2f2' : '#ffffff';
     $html .= "<td style='background:$color'>{$totals[$d['id']]['fuel']}</td>
@@ -144,7 +144,7 @@ foreach($drivers as $index => $d){
 $html .= "</tr>";
 
 // Total شامل لكل سائق مع جمع كل التفاصيل
-$html .= "<tr style='background:#dff0d8'><td>Total All Services</td>";
+$html .= "<tr style='background:#dff0d8'><td>".$trans[$lang]['total_all_services']."</td>";
 foreach($drivers as $index => $d){
     $color = ($index % 2 == 0) ? '#f2f2f2' : '#ffffff';
     $sum = $totals[$d['id']]['fuel'] 

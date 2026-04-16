@@ -1,6 +1,14 @@
 <?php
 include("../includes/db.php");
 include("../includes/lang.php");
+session_start();
+
+if(isset($_GET['lang'])){
+    $_SESSION['lang'] = $_GET['lang'];
+}
+
+$lang = $_SESSION['lang'] ?? 'ar';
+$t = $trans[$lang];
 require_once __DIR__.'/../libs/SimpleXLSXGen.php';
 
 $month = $_GET['month'] ?? date('Y-m');

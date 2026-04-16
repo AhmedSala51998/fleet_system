@@ -1,6 +1,14 @@
 <?php
 require __DIR__.'/../includes/db.php';
 include("../includes/lang.php");
+session_start();
+
+if(isset($_GET['lang'])){
+    $_SESSION['lang'] = $_GET['lang'];
+}
+
+$lang = $_SESSION['lang'] ?? 'ar';
+$t = $trans[$lang];
 
 // ===== فلترة الشهر والسائق =====
 $month = $_GET['month'] ?? date('Y-m'); // افتراضي الشهر الحالي

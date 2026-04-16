@@ -1,5 +1,6 @@
 <?php
 include("../includes/db.php");
+include("../includes/layout.php");
 require_once __DIR__.'/../libs/SimpleXLSXGen.php';
 
 $month = $_GET['month'] ?? date('Y-m');

@@ -49,7 +49,7 @@ $q = mysqli_query($conn,"SELECT * FROM vehicles");
                             <?php } else { echo "-"; } ?>
                         </td>
                         <td>
-                            <button onclick="deleteItem('delete.php?id=<?php echo $row['id']; ?>')" class="btn btn-danger btn-sm mb-1 gradient-danger" data-bs-toggle="tooltip" title="حذف المركبة">
+                            <button onclick="deleteItem('delete.php?id=<?php echo $row['id']; ?>')" class="btn btn-danger btn-sm mb-1 gradient-danger" data-bs-toggle="tooltip" title="<?php echo $t['confirm_delete']; ?>">
                                 <i class="fa fa-trash"></i>
                             </button>
                         </td>

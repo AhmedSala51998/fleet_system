@@ -87,6 +87,8 @@ $trans = [
         'select_one_vehicle_alert' => 'اختار مركبة واحدة على الأقل',
         'update_success' => 'تم التحديث',
         'add_success' => 'تمت الإضافة',
+        'company' => 'شركة',
+        'rental' => 'مستأجرة',
     ],
 
     'en' => [
@@ -174,5 +176,7 @@ $trans = [
         'select_one_vehicle_alert' => 'Select at least one vehicle',
         'update_success' => 'Updated successfully',
         'add_success' => 'Added successfully',
+        'company' => 'Company',
+        'rental' => 'Rental',
     ]
 ];

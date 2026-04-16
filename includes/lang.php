@@ -88,7 +88,7 @@ $trans = [
         'update_success' => 'تم التحديث',
         'add_success' => 'تمت الإضافة',
         'company' => 'شركة',
-        'rental' => 'مستأجرة',
+        'rented' => 'مستأجرة',
     ],
 
     'en' => [
@@ -177,6 +177,6 @@ $trans = [
         'update_success' => 'Updated successfully',
         'add_success' => 'Added successfully',
         'company' => 'Company',
-        'rental' => 'Rental',
+        'rented' => 'Rented',
     ]
 ];
